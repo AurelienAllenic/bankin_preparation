@@ -8,6 +8,10 @@ const OnePost = () => {
     const navigate = useNavigate();
     const [post, setPost] = useState([])
 
+    const [userId, setUserId] = useState(localStorage.getItem('userId'))
+    
+    
+
     useEffect(() => {
         axios.get(`http://localhost:4000/api/post/${params.id}`).then((res) => {
             console.log(res.data._id)
@@ -37,10 +41,13 @@ const OnePost = () => {
                   <img src={post.imageUrl} alt={post.title} />
               </li>
           </ul>
-          <div>
-            <button onClick={() => deletePost(post._id)}>Supprimer</button>
-            <Link to={`/update-post/${post._id}`}>Modifier</Link>
-          </div>
+          {
+            userId === post.userId &&
+            <div>
+              <button onClick={() => deletePost(post._id)}>Supprimer</button>
+              <Link to={`/update-post/${post._id}`}>Modifier</Link>
+            </div>
+          }
       </div>
   )
 }
