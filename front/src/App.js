@@ -1,24 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import Login from './components/Login/Login';
+import Signup from './components/Signup/Signup';
+import Dashboard from './components/Dashboard/Dashboard';
+import axios from 'axios';
+import PrivateRoute from './components/PrivateRoute';
+import CreatePost from './components/Dashboard/CreatePost';
+import OnePost from './components/Dashboard/OnePost';
 
 function App() {
+
+  axios.defaults.headers.common.Authorization = `Bearer ${localStorage.token}`;
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route exact path="/" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+        <Route exact path="/create-post" element={<PrivateRoute><CreatePost /></PrivateRoute>} />
+        <Route exact path="/one-post/:id" element={<PrivateRoute><OnePost /></PrivateRoute>} />
+        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/signup" element={<Signup />} />
+      </Routes>
+    </Router>
   );
 }
 
