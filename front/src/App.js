@@ -7,6 +7,7 @@ import axios from 'axios';
 import PrivateRoute from './components/PrivateRoute';
 import CreatePost from './components/Dashboard/CreatePost';
 import OnePost from './components/Dashboard/OnePost';
+import UpdatePost from './components/Dashboard/UpdatePost';
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
         <Route exact path="/" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
         <Route exact path="/create-post" element={<PrivateRoute><CreatePost /></PrivateRoute>} />
         <Route exact path="/one-post/:id" element={<PrivateRoute><OnePost /></PrivateRoute>} />
+        <Route exact path="/update-post/:id" element={<PrivateRoute><UpdatePost /></PrivateRoute>} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/signup" element={<Signup />} />
       </Routes>

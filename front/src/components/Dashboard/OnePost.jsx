@@ -39,6 +39,7 @@ const OnePost = () => {
           </ul>
           <div>
             <button onClick={() => deletePost(post._id)}>Supprimer</button>
+            <Link to={`/update-post/${post._id}`}>Modifier</Link>
           </div>
       </div>
   )
