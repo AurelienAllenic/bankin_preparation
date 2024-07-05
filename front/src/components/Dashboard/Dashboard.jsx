@@ -18,11 +18,10 @@ const Dashboard = () => {
     useEffect(() => {
         axios.get('http://localhost:4000/api/post/all')
       .then(res => {
-        console.log(res)
         setAllData(res.data)
         navigate('/');
       }).catch(err => {
-        alert(err.message + ' - pas de posts');
+        console.log('pas de posts')
       })
     }, [])
 
@@ -30,8 +29,8 @@ const Dashboard = () => {
     <section id='dashboard'>
         <button onClick={logout}>Logout</button>
         <Link to='/create-post'>Créer un Post</Link>
-            {
-            allData.length > 0 && (
+        <Link to='/user-posts'>Vos Post</Link>
+            {allData.length > 0 && (
                 <ul>
                     {allData.map((data) => (
                         <li key={data._id}>
@@ -46,8 +45,7 @@ const Dashboard = () => {
                         </li>
                     ))}
                 </ul>
-            )
-        } 
+            )}
     </section>
   )
 }

@@ -8,6 +8,7 @@ import PrivateRoute from './components/PrivateRoute';
 import CreatePost from './components/Dashboard/CreatePost';
 import OnePost from './components/Dashboard/OnePost';
 import UpdatePost from './components/Dashboard/UpdatePost';
+import UserPosts from './components/Dashboard/UserPosts';
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
     <Router>
       <Routes>
         <Route exact path="/" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+        <Route exact path="/user-posts" element={<PrivateRoute><UserPosts /></PrivateRoute>} />
         <Route exact path="/create-post" element={<PrivateRoute><CreatePost /></PrivateRoute>} />
         <Route exact path="/one-post/:id" element={<PrivateRoute><OnePost /></PrivateRoute>} />
         <Route exact path="/update-post/:id" element={<PrivateRoute><UpdatePost /></PrivateRoute>} />
