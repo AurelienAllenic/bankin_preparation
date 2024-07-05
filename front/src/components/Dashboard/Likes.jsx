@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { BsHandThumbsDown, BsHandThumbsUp } from "react-icons/bs"
+import { BsHandThumbsUp } from "react-icons/bs"
 import axios from 'axios'
-import { useParams } from "react-router-dom";
 
 const LikesDislikes = ({ post }) => {
-  const params = useParams();
   const [likes, setLikes] = useState(0)
   const [likeActive, setLikeActive] = useState(false)
 

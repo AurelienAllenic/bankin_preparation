@@ -6,7 +6,7 @@ import axios from "axios"
 
 const Signup = () => {
     const navigate = useNavigate();
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit } = useForm();
 
   const onSubmit = data => {
     axios.post('http://localhost:4000/api/user/create', data)

@@ -4,13 +4,9 @@ import axios from 'axios';
 
 const OnePost = () => {
     const params = useParams();
-    console.log(params.id, "params")
     const navigate = useNavigate();
-    const [post, setPost] = useState([])
-
-    const [userId, setUserId] = useState(localStorage.getItem('userId'))
-    
-    
+    const [post, setPost] = useState([]);
+    const userId = localStorage.getItem('userId');
 
     useEffect(() => {
         axios.get(`http://localhost:4000/api/post/${params.id}`).then((res) => {
@@ -20,10 +16,9 @@ const OnePost = () => {
           console.log(err.response.data)
           alert(err.message + " - Erreur lors de la récupération du post");
         });
-    }, []);
+    }, [params.id]);
 
     const deletePost = (PostId) => {
-      
       axios.delete(`http://localhost:4000/api/post/${PostId}`).then((res) => {
             navigate('/')
         }).catch((err) => {
@@ -31,6 +26,7 @@ const OnePost = () => {
           alert(err.message + " - Erreur lors de la suppression du post");
         });
     }
+
 
   return (
       <div>

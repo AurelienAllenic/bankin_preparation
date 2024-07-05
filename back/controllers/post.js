@@ -63,33 +63,33 @@ exports.getAllPosts = (req, res, next) => {
 
 // UPDATE ONE
 exports.updatePost = (req, res, next) => {
-    if (post.userId != req.auth.userId) {
+  const postObject = req.file
+    ? {
+        ...req.body,
+        imageUrl: `${req.protocol}://${req.get("host")}/../../assets/images/${
+          req.file.filename
+        }`,
+      }
+    : { ...req.body };
+
+  delete postObject._userId;
+  PostModel.findOne({ _id: req.params.id })
+    .then((post) => {
+      if (post.userId != req.auth.userId) {
         res.status(401).json({ message: "Not authorized" });
       } else {
-    const postObject = req.file
-      ? {
-          ...req.body,
-          imageUrl: `${req.protocol}://${req.get("host")}/../../assets/images/${
-            req.file.filename
-          }`,
-        }
-      : { ...req.body };
-
-    delete postObject._userId;
-    PostModel.findOne({ _id: req.params.id })
-      .then((post) => {
-          PostModel.updateOne(
-            { _id: req.params.id },
-            { ...postObject, _id: req.params.id }
-          )
-            .then(() => res.status(200).json({ message: "Post modifié!" }))
-            .catch((error) => res.status(401).json({ error }));
-      })
-      .catch((error) => {
-        res.status(400).json({ error });
-      });
-    }
-  };
+        PostModel.updateOne(
+          { _id: req.params.id },
+          { ...postObject, _id: req.params.id }
+        )
+          .then(() => res.status(200).json({ message: "Post modifié!" }))
+          .catch((error) => res.status(401).json({ error }));
+      }
+    })
+    .catch((error) => {
+      res.status(400).json({ error });
+    });
+};
 
   // LIKE POST
 

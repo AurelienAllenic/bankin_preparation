@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react'
-import { useForm } from "react-hook-form";
 import axios from "axios"
 import { Link, useNavigate } from "react-router-dom";
-import { MdOutlineThumbDown, MdOutlineThumbUp } from "react-icons/md";
 import LikesDislikes from './Likes';
+
 
 const Dashboard = () => {
     const navigate = useNavigate();
@@ -23,7 +22,7 @@ const Dashboard = () => {
       }).catch(err => {
         console.log('pas de posts')
       })
-    }, [])
+    }, [navigate])
 
   return (
     <section id='dashboard'>

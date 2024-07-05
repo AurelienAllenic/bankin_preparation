@@ -1,10 +1,11 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
-const fs = require("fs")
+const mongoose = require('mongoose');
+const { MongoClient } = require('mongodb');
+const uri = process.env.DATABASE_ACCESS;
 
 /**
  * ROUTES IMPORTS
@@ -16,11 +17,18 @@ const postRoutes = require('./routes/post');
 /**
  * DB MANAGEMENT
  */
-mongoose.connect(process.env.DATABASE_ACCESS,
-    { useNewUrlParser: true,
-        useUnifiedTopology: true })
-    .then(() => console.log('Connexion à MongoDB réussie !'))
-    .catch(() => console.log('Connexion à MongoDB échouée !'));
+
+const connectDB = ()=>{
+    mongoose.connect(`${uri}`)
+    .then(()=>{
+        console.log("DB connection successful.");
+    })
+    .catch((err)=>{
+        console.log(`DB connection error:${err}`);
+    });
+}
+
+connectDB()
 
 /**
  * EXPRESS APP CREATION
@@ -41,14 +49,14 @@ app.use((req, res, next) => {
 /**
  * BODYPARSER MANAGEMENT
  */
-app.use(bodyParser.json());
 
+app.use(bodyParser.json());
 
 app.use('/api/user', userRoutes);
 app.use('/api/post', postRoutes);
 app.use(
     "/assets/images",
     express.static(path.join(__dirname, "assets/images"))
-  );
+);
 
 module.exports = app;

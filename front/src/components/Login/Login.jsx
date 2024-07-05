@@ -5,7 +5,7 @@ import axios from "axios"
 
 const Login = () => {
     const navigate = useNavigate();
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit } = useForm();
 
 
   const onSubmit = data => {
